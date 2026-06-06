@@ -23,12 +23,7 @@ export default function MetadataSection({ state, update }: Props) {
 <Select label="Role" value={state.role} options={[
   "presentation",
   "group",
-  "region",
-  "main",
-  "banner",
-  "contentinfo",
-  "navigation",
-  "separator"
+  "region"
 ]} onChange={(value) => update("role", value)} />
 <Slider label="tabIndex" value={state.tabIndex} min={0} max={4} step={1} onChange={(value) => update("tabIndex", value)} /></SectionCard>;
 }
