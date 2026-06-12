@@ -27,7 +27,8 @@ export default function FlexComponent() {
     boxShadow: "0 " + Math.round(state.shadow / 3) + "px " + state.shadow + "px rgba(0,0,0,.28)",
     background: state.background,
     color: state.foreground,
-    fontFamily: state.fontFamily
+    fontFamily: state.fontFamily,
+    transition: state.motion ? "gap 0.2s ease, background 0.2s ease" : "none"
   };
 
   return (

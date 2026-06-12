@@ -7,7 +7,7 @@ const flexAlign = (value: FlexState["align"]) => value === "start" ? "flex-start
 const flexJustify = (value: FlexState["justify"]) => value === "start" ? "flex-start" : value === "end" ? "flex-end" : value;
 
 function box(state: FlexState): CSSProperties {
-  return { width: state.width, minHeight: state.height, padding: state.padding, margin: state.margin, borderRadius: state.radius, border: `${state.borderWidth}px solid ${state.border}`, boxShadow: `0 ${Math.round(state.shadow / 3)}px ${state.shadow}px rgba(0,0,0,.28)`, background: state.background, color: state.foreground, fontFamily: state.fontFamily };
+  return { width: state.width, minHeight: state.height, padding: state.padding, margin: state.margin, borderRadius: state.radius, border: `${state.borderWidth}px solid ${state.border}`, boxShadow: `0 ${Math.round(state.shadow / 3)}px ${state.shadow}px rgba(0,0,0,.28)`, background: state.background, color: state.foreground, fontFamily: state.fontFamily, transition: state.motion ? "gap 0.2s ease, background 0.2s ease" : "none" };
 }
 
 export default function LivePreview({ state }: { state: FlexState }) {
