@@ -28,7 +28,7 @@ export default function FlexComponent() {
     background: state.background,
     color: state.foreground,
     fontFamily: state.fontFamily,
-    transition: state.motion ? "gap 0.2s ease, background 0.2s ease" : "none"
+    transition: state.transitionDuration > 0 ? "$1" : "none"
   };
 
   return (

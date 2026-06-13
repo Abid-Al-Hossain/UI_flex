@@ -35,7 +35,7 @@ export default function Page() {
   const [previewBgInput, setPreviewBgInput] = useState("#0b1220");
   const [previewResetKey, setPreviewResetKey] = useState(0);
   const update = <K extends keyof FlexState>(key: K, value: FlexState[K]) => { setState((current) => ({ ...current, [key]: value })); setActivePresetId(null); };
-  const applyPreset = (preset: StudioPreset) => { setState(preset.state); setActivePresetId(preset.id); setPreviewResetKey((value) => value + 1); };
+  const applyPreset = (preset: StudioPreset) => { setState({ ...DEFAULT_FLEX_STATE, ...(preset.state as Partial<FlexState>) }); setActivePresetId(preset.id); setPreviewResetKey((value) => value + 1); };
   const resetState = () => { setState(DEFAULT_FLEX_STATE); setActivePresetId(null); setPreviewResetKey((value) => value + 1); };
   const exportPayload = useMemo(() => buildExportPayload(state, downloadName), [downloadName, state]);
   const preview = useMemo(() => <LivePreview key={previewResetKey} state={state} />, [previewResetKey, state]);
