@@ -8,10 +8,12 @@ import type { FlexState } from "../types";
 type Props = { state: FlexState; update: <K extends keyof FlexState>(key: K, value: FlexState[K]) => void };
 
 export default function AccessibilitySection({ state, update }: Props) {
-  return <SectionCard title="Accessibility" subtitle="Accessibility controls for native layout/page-structure generation."><Input label="Landmark label" value={state.landmarkLabel} onChange={(value) => update("landmarkLabel", value)} />
+  return <SectionCard title="Accessibility" subtitle="Accessibility controls for native layout/page-structure generation.">
+      <div className="space-y-4"><Input label="Landmark label" value={state.landmarkLabel} onChange={(value) => update("landmarkLabel", value)} />
 <Select label="Semantic role" value={state.role} options={[
   "presentation",
   "group",
   "region"
-]} onChange={(value) => update("role", value)} /></SectionCard>;
+]} onChange={(value) => update("role", value)} /></div>
+    </SectionCard>;
 }

@@ -7,7 +7,8 @@ import type { FlexState } from "../types";
 type Props = { state: FlexState; update: <K extends keyof FlexState>(key: K, value: FlexState[K]) => void };
 
 export default function LayoutSection({ state, update }: Props) {
-  return <SectionCard title="Layout" subtitle="Layout controls for native layout/page-structure generation."><Select label="Direction" value={state.direction} options={[
+  return <SectionCard title="Layout" subtitle="Layout controls for native layout/page-structure generation.">
+      <div className="space-y-4"><Select label="Direction" value={state.direction} options={[
   "row",
   "column",
   "row-reverse",
@@ -30,5 +31,6 @@ export default function LayoutSection({ state, update }: Props) {
   "center",
   "end",
   "stretch"
-]} onChange={(value) => update("align", value)} /></SectionCard>;
+]} onChange={(value) => update("align", value)} /></div>
+    </SectionCard>;
 }
