@@ -59,7 +59,11 @@ export const DEFAULT_FLEX_STATE: FlexState = {
   "justify": "center",
   "align": "stretch",
   "itemCount": 5,
-  "itemBasis": 140
+  "itemBasis": 140,
+  "hoverEnabled": false,
+  "hoverBg": "rgba(56,189,248,0.06)",
+  "hoverBorder": "#38bdf8",
+  "hoverShadow": "0 12px 24px rgba(0,0,0,0.25)"
 };
 
 export const FLEX_PRESETS: StudioPreset[] = [

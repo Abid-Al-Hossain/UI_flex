@@ -65,6 +65,10 @@ export type FlexState = {
   align: "start" | "center" | "end" | "stretch";
   itemCount: number;
   itemBasis: number;
+  hoverEnabled: boolean;
+  hoverBg: string;
+  hoverBorder: string;
+  hoverShadow: string;
 };
 
 export type StudioPreset = { id: string; family: string; archetype: string; variant: string; size: string; tags: string[]; state: Partial<FlexState> & Record<string, unknown> };

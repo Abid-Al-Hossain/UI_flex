@@ -20,22 +20,24 @@ export default function FlexComponent() {
   const Element = state.element === "hr" ? "div" : state.element;
   const role = ["presentation", "group", "region"].includes(state.role) ? state.role : undefined;
   const items = Array.from({ length: state.itemCount }, (_, index) => index + 1);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const hovered = state.hoverEnabled && isHovered;
   const style = {
     width: state.width,
     minHeight: state.height,
     padding: state.padding,
     margin: state.margin,
     borderRadius: state.radius,
-    border: state.borderWidth + "px " + state.borderStyle + " " + (state.disabled && state.disabledUseCustomColors ? state.disabledBorder : state.border),
-    boxShadow: buildShadow(state),
-    background: state.background,
+    border: state.borderWidth + "px " + state.borderStyle + " " + (hovered ? state.hoverBorder : state.border),
+    boxShadow: hovered ? state.hoverShadow : buildShadow(state),
+    background: hovered ? state.hoverBg : state.background,
     color: state.foreground,
     fontFamily: resolveFont(state),
     transition: state.transitionDuration > 0 ? "all " + state.transitionDuration + "ms " + state.transitionEasing : "none"
   };
 
   return (
-    <Element id={state.id} role={role} aria-label={state.landmarkLabel || undefined} tabIndex={state.tabIndex} style={style}>
+    <Element id={state.id} role={role} aria-label={state.landmarkLabel || undefined} tabIndex={state.tabIndex} style={style} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <div style={{ display: "grid", gap: Math.max(8, state.gap / 2), marginBottom: state.gap }}>
         <h3 style={{ margin: 0, fontSize: state.titleSize, fontWeight: state.fontWeight }}>{state.title}</h3>
         <p style={{ margin: 0, color: state.muted, fontSize: state.bodySize }}>{state.description}</p>

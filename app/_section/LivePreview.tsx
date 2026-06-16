@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import type { FlexState } from "../types";
 import { SYSTEM_FONTS } from "@/components/shared/typography/fontConstants";
 
@@ -38,6 +38,14 @@ export default function LivePreview({ state }: { state: FlexState }) {
   const Element = state.element === "hr" ? "div" : state.element;
   const role = state.role === "presentation" || state.role === "group" || state.role === "region" ? state.role : undefined;
   const items = Array.from({ length: state.itemCount }, (_, index) => index + 1);
+  const [isHovered, setIsHovered] = useState(false);
+  const hovered = state.hoverEnabled && isHovered;
   const style = box(state);
-  return <Element id={state.id} role={role} aria-label={state.landmarkLabel || undefined} tabIndex={state.tabIndex} style={style}><div style={{ display: "grid", gap: Math.max(8, state.gap / 2), marginBottom: state.gap }}><h3 style={{ margin: 0, fontSize: state.titleSize, fontWeight: state.fontWeight }}>{state.title}</h3><p style={{ margin: 0, color: state.muted, fontSize: state.bodySize }}>{state.description}</p></div><div style={{ display: "flex", flexDirection: state.direction, flexWrap: state.wrap, justifyContent: flexJustify(state.justify), alignItems: flexAlign(state.align), gap: state.gap }}>{items.map((item) => <div key={item} style={{ minWidth: 82, minHeight: 56, display: "grid", placeItems: "center", flex: state.wrap === "nowrap" ? "0 0 auto" : "1 1 96px", borderRadius: Math.max(10, state.radius / 2), border: `1px solid ${state.border}`, background: "rgba(255,255,255,.08)", color: state.foreground }}>Item {item}</div>)}</div></Element>;
+  const finalStyle: CSSProperties = {
+    ...style,
+    background: hovered ? state.hoverBg : style.background,
+    borderColor: hovered ? state.hoverBorder : state.border,
+    boxShadow: hovered ? state.hoverShadow : style.boxShadow,
+  };
+  return <Element id={state.id} role={role} aria-label={state.landmarkLabel || undefined} tabIndex={state.tabIndex} style={finalStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}><div style={{ display: "grid", gap: Math.max(8, state.gap / 2), marginBottom: state.gap }}><h3 style={{ margin: 0, fontSize: state.titleSize, fontWeight: state.fontWeight }}>{state.title}</h3><p style={{ margin: 0, color: state.muted, fontSize: state.bodySize }}>{state.description}</p></div><div style={{ display: "flex", flexDirection: state.direction, flexWrap: state.wrap, justifyContent: flexJustify(state.justify), alignItems: flexAlign(state.align), gap: state.gap }}>{items.map((item) => <div key={item} style={{ minWidth: 82, minHeight: 56, display: "grid", placeItems: "center", flex: state.wrap === "nowrap" ? "0 0 auto" : "1 1 96px", borderRadius: Math.max(10, state.radius / 2), border: `1px solid ${state.border}`, background: "rgba(255,255,255,.08)", color: state.foreground }}>Item {item}</div>)}</div></Element>;
 }
